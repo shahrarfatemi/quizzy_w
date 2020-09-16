@@ -2,15 +2,15 @@ package model;
 
 import java.io.Serializable;
 
-public class UserInfo extends User implements Serializable {
+public class UserInfo implements Serializable {
     String token;
-
+    User user;
     public UserInfo() {
     }
 
 
-    public UserInfo(String name, String email, String _id, String createdAt, String updatedAt, String token) {
-        super(name, email, _id, createdAt, updatedAt);
+    public UserInfo(User user, String token) {
+        this.user = user;
         this.token = token;
     }
 
@@ -22,4 +22,11 @@ public class UserInfo extends User implements Serializable {
         this.token = token;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

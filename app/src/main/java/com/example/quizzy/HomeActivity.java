@@ -69,8 +69,8 @@ public class HomeActivity extends AppCompatActivity {
                 networkUtilQuiz.showTopFeedQuizzes(token, hashMap, 0, 2, new UiShowFeedTask() {
                     @Override
                     public void showTopFeedQuizzes(List<QuizFeed> quizzes) {
-                        Log.d("response in feed  ","got quizzes");
-                        showFeedText.setText(quizzes.get(0).getOwner());
+                        Log.d("response in feed  ","got quizzes ");
+                        showFeedText.setText(quizzes.get(0).getTitle());
                     }
                 });
                 Log.d("response in feed  ","pressed show feed button");

@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void logIn(UserInfo userInfo) {
                     signupNavigationButton.setText(userInfo.getToken());
-                    Log.d("nav ","to home page");
+                    Log.d("nav ","to home page "+userInfo.getUser().getName());
                     Intent intent = new Intent(MainActivity.this,HomeActivity.class);
                     intent.putExtra("MyInfo",userInfo);
                     startActivity(intent);

@@ -29,7 +29,7 @@ import task.UiGetProfileTask;
 import task.UiLogOutTask;
 import task.UiLoginTask;
 import task.UiShowQuizTask;
-import task.UiSingUpInterface;
+import task.UiSignUpTask;
 
 public class NetworkUtil {
     Retrofit retrofit;
@@ -50,7 +50,7 @@ public class NetworkUtil {
 //        return networkUtil;
 //    }
 
-    public void handleSignup(String name, String email, String pass, final @Nullable UiSingUpInterface callBack){
+    public void handleSignup(String name, String email, String pass, final @Nullable UiSignUpTask callBack){
         HashMap<String,String> hashMap = new HashMap<>();
 
         hashMap.put("name",name);
@@ -66,7 +66,7 @@ public class NetworkUtil {
                 if(response.code() == 201){
                     try {
                         UserInfo userInfo = (UserInfo) response.body();
-                        Log.d("email ",userInfo.getEmail());
+                        Log.d("email ",userInfo.getUser().getEmail());
                         callBack.signUp(userInfo);
 //                        Toast.makeText(SignupActivity.this, "saved info successfully " + name +"\n"+email+ "\n"+token, Toast.LENGTH_LONG).show();
 //                        saveInfo(name, email, token);
