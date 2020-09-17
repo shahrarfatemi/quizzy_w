@@ -2,6 +2,6 @@ package task;
 
 import model.UserInfo;
 
-public interface UiDeleteUserTask {
+public interface DeleteUserTask {
     void deleteUser(UserInfo userInfo);
 }

@@ -1,5 +1,5 @@
 package task;
 
-public interface UiLogOutTask {
+public interface LogOutTask {
     void logOut();
 }

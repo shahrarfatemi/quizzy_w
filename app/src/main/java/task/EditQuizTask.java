@@ -2,6 +2,6 @@ package task;
 
 import model.QuizResponse;
 
-public interface UiEditQuizTask {
+public interface EditQuizTask {
     void editQuiz(QuizResponse quizResponse);
 }

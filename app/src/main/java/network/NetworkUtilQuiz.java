@@ -4,11 +4,6 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import com.google.gson.internal.LinkedTreeMap;
-
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,14 +17,14 @@ import model.Submission;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import task.UiCreateQuizTask;
-import task.UiDeleteQuizTask;
-import task.UiEditQuizTask;
-import task.UiGetAnswerScriptTask;
-import task.UiPostReviewTask;
-import task.UiQuestionsForQuizTask;
-import task.UiShowFeedTask;
-import task.UiShowQuizTask;
+import task.CreateQuizTask;
+import task.DeleteQuizTask;
+import task.EditQuizTask;
+import task.GetAnswerScriptTask;
+import task.PostReviewTask;
+import task.QuestionsForQuizTask;
+import task.ShowFeedTask;
+import task.ShowQuizTask;
 
 public class NetworkUtilQuiz extends NetworkUtil {
 
@@ -37,7 +32,7 @@ public class NetworkUtilQuiz extends NetworkUtil {
         super();
     }
 
-    public void postMyQuiz(String header, Quiz quiz, @Nullable final UiCreateQuizTask callBack){
+    public void postMyQuiz(String header, Quiz quiz, @Nullable final CreateQuizTask callBack){
         Log.d("post quiz pre response", "let's see'");
         Call<QuizResponse> call = retrofitInterface.executeCreateQuiz("Bearer "+header, quiz);
         Log.d("post quiz pre response", "let's see again");
@@ -70,7 +65,7 @@ public class NetworkUtilQuiz extends NetworkUtil {
         });
     }
 
-    public void deleteQuiz(String header, String id, @Nullable final UiDeleteQuizTask callBack){
+    public void deleteQuiz(String header, String id, @Nullable final DeleteQuizTask callBack){
         Call<Void> call = retrofitInterface.executeDeleteQuiz("Bearer "+header, id);
 
         call.enqueue(new Callback<Void>() {
@@ -100,7 +95,7 @@ public class NetworkUtilQuiz extends NetworkUtil {
     }
 
 
-    public void showMyQuiz(String header, @Nullable final UiShowQuizTask callBack){
+    public void showMyQuiz(String header, @Nullable final ShowQuizTask callBack){
         Call<List<QuizResponse>> call = retrofitInterface.executeGetMyQuiz("Bearer "+header);
         Log.d("after request => ","got response");
         call.enqueue(new Callback<List<QuizResponse>>() {
@@ -131,7 +126,7 @@ public class NetworkUtilQuiz extends NetworkUtil {
         });
     }
 
-    public void editMyQuiz(String header, String _id, Quiz quiz, @Nullable final UiEditQuizTask callBack){
+    public void editMyQuiz(String header, String _id, Quiz quiz, @Nullable final EditQuizTask callBack){
         Call<QuizResponse> call = retrofitInterface.executeEditQuiz("Bearer "+header, _id, quiz);
 
         call.enqueue(new Callback<QuizResponse>() {
@@ -160,7 +155,7 @@ public class NetworkUtilQuiz extends NetworkUtil {
     }
 
     public void showTopFeedQuizzes(String header, HashMap<String, String> hashMap, int skip, int limit,
-                                  @Nullable final UiShowFeedTask callBack){
+                                  @Nullable final ShowFeedTask callBack){
 
         Call<List<QuizFeed>> call;
         if(hashMap.containsKey("title")) {
@@ -212,7 +207,7 @@ public class NetworkUtilQuiz extends NetworkUtil {
     }
 
     public void getQuestionsForAQuiz(String header, String quizId, HashMap<String, String> hashMap,
-                                     @Nullable final UiQuestionsForQuizTask callBack){
+                                     @Nullable final QuestionsForQuizTask callBack){
 
         Call<QuestionPaper> call;
 
@@ -257,7 +252,7 @@ public class NetworkUtilQuiz extends NetworkUtil {
 
 
     public void getAnswerScript(String header, String _id, HashMap<String, List<Submission>> hashMap,
-                                @Nullable final UiGetAnswerScriptTask callBack){
+                                @Nullable final GetAnswerScriptTask callBack){
 
         Call<AnswerResponse> call = retrofitInterface.executeSubmitAnswer("Bearer "+header, _id,
                 hashMap);
@@ -294,7 +289,7 @@ public class NetworkUtilQuiz extends NetworkUtil {
 
 
     public void postRating(String header, String _id, HashMap<String, Double> hashMap,
-                                @Nullable final UiPostReviewTask callBack){
+                                @Nullable final PostReviewTask callBack){
 
         Call<AnswerReview> call = retrofitInterface.executePostRating("Bearer "+header, _id,
                 hashMap);

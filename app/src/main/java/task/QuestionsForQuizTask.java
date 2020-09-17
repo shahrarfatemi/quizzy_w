@@ -2,6 +2,6 @@ package task;
 
 import model.QuestionPaper;
 
-public interface UiQuestionsForQuizTask {
+public interface QuestionsForQuizTask {
     void getQuestionsForQuiz(QuestionPaper questionPaper);
 }

@@ -4,6 +4,6 @@ import java.util.List;
 
 import model.QuizResponse;
 
-public interface UiShowQuizTask {
+public interface ShowQuizTask {
     void showMyQuizzes(List<QuizResponse> quizzes);
 }

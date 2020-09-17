@@ -10,10 +10,10 @@ import model.UserInfo;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import task.UiDeleteProfilePictureTask;
-import task.UiDeleteUserTask;
-import task.UiEditProfileTask;
-import task.UiGetProfileTask;
+import task.DeleteProfilePictureTask;
+import task.DeleteUserTask;
+import task.EditProfileTask;
+import task.GetProfileTask;
 
 public class NetworkUtilAccount extends NetworkUtil {
 
@@ -21,7 +21,7 @@ public class NetworkUtilAccount extends NetworkUtil {
         super();
     }
 
-    public void getProfile(String header, final @Nullable UiGetProfileTask callBack){
+    public void getProfile(String header, final @Nullable GetProfileTask callBack){
         Log.d("before request ",header);
         Call<UserInfo> call = retrofitInterface.executeGetMyProfile("Bearer "+header);
 
@@ -50,7 +50,7 @@ public class NetworkUtilAccount extends NetworkUtil {
         });
     }
 
-    public void deleteMyAccount(String header, @Nullable final UiDeleteUserTask callBack){
+    public void deleteMyAccount(String header, @Nullable final DeleteUserTask callBack){
         Call<UserInfo> call = retrofitInterface.executeDeleteMyAccount("Bearer "+header);
 
         call.enqueue(new Callback<UserInfo>() {
@@ -78,7 +78,7 @@ public class NetworkUtilAccount extends NetworkUtil {
         });
     }
 
-    public void editMyAccount(String header, String name, String password, @Nullable final UiEditProfileTask callBack){
+    public void editMyAccount(String header, String name, String password, @Nullable final EditProfileTask callBack){
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("name",name);
         hashMap.put("password",password);
@@ -113,7 +113,7 @@ public class NetworkUtilAccount extends NetworkUtil {
         });
     }
 
-    public void deleteProfilePicture(String header, @Nullable final UiDeleteProfilePictureTask callBack){
+    public void deleteProfilePicture(String header, @Nullable final DeleteProfilePictureTask callBack){
         Call<Void> call = retrofitInterface.executeDeleteProfilePicture("Bearer "+header);
 
         call.enqueue(new Callback<Void>() {

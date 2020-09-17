@@ -4,6 +4,6 @@ import java.util.List;
 
 import model.QuizFeed;
 
-public interface UiShowFeedTask {
+public interface ShowFeedTask {
     void showTopFeedQuizzes(List<QuizFeed> quizzes);
 }

@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import model.UserResponse;
 import network.NetworkUtil;
-import task.UiLoginTask;
+import task.LoginTask;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String email = emailEditText.getText().toString();
             String password = passEditText.getText().toString();
             Toast.makeText(this,"clicked",Toast.LENGTH_LONG).show();
-            networkUtil.handleLogin(email, password, new UiLoginTask() {
+            networkUtil.handleLogin(email, password, new LoginTask() {
                 @Override
                 public void logIn(UserResponse userResponse) {
                     signupNavigationButton.setText(userResponse.getToken());

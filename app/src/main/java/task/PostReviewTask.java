@@ -2,6 +2,6 @@ package task;
 
 import model.AnswerReview;
 
-public interface UiPostReviewTask {
+public interface PostReviewTask {
     void postRating(AnswerReview answerReview);
 }

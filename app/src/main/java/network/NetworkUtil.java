@@ -12,9 +12,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import task.UiLogOutTask;
-import task.UiLoginTask;
-import task.UiSignUpTask;
+import task.LogOutTask;
+import task.LoginTask;
+import task.SignUpTask;
 
 public class NetworkUtil {
     Retrofit retrofit;
@@ -35,7 +35,7 @@ public class NetworkUtil {
 //        return networkUtil;
 //    }
 
-    public void handleSignup(String name, String email, String pass, final @Nullable UiSignUpTask callBack){
+    public void handleSignup(String name, String email, String pass, final @Nullable SignUpTask callBack){
         HashMap<String,String> hashMap = new HashMap<>();
 
         hashMap.put("name",name);
@@ -77,7 +77,7 @@ public class NetworkUtil {
 
 
 
-    public void handleLogin(String email, final String pass, final @Nullable UiLoginTask callBack){
+    public void handleLogin(String email, final String pass, final @Nullable LoginTask callBack){
         HashMap<String, String> hashMap = new HashMap<>();
 
         hashMap.put("email",email);
@@ -110,7 +110,7 @@ public class NetworkUtil {
     }
 
 
-    public void logOut(String header, @Nullable final UiLogOutTask callBack){
+    public void logOut(String header, @Nullable final LogOutTask callBack){
         Call<Void> call = retrofitInterface.executeLogout("Bearer "+header);
 //        Toast.makeText(HomeActivity.this,"inside this method",Toast.LENGTH_LONG).show();
         call.enqueue(new Callback<Void>() {
@@ -141,7 +141,7 @@ public class NetworkUtil {
 
     }
 
-    public void logoutAllDevice(String header, @Nullable final UiLogOutTask callBack){
+    public void logoutAllDevice(String header, @Nullable final LogOutTask callBack){
         //format of the header is : header-name "Authorization", header-value "Bearer <token>"
         Call<Void> call = retrofitInterface.executeLogoutAll("Bearer "+header);
         call.enqueue(new Callback<Void>() {

@@ -1,5 +1,5 @@
 package task;
 
-public interface UiDeleteProfilePictureTask {
+public interface DeleteProfilePictureTask {
     void deleteProfilePicture();
 }

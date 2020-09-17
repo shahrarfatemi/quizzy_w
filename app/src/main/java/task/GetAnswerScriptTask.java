@@ -2,6 +2,6 @@ package task;
 
 import model.AnswerResponse;
 
-public interface UiGetAnswerScriptTask {
+public interface GetAnswerScriptTask {
     void getAnswerScript(AnswerResponse answerResponse);
 }

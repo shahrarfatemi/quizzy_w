@@ -1,5 +1,5 @@
 package task;
 
-public interface UiDeleteQuizTask {
+public interface DeleteQuizTask {
     void deleteQuiz();
 }

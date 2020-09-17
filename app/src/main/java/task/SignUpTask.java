@@ -2,6 +2,6 @@ package task;
 
 import model.UserResponse;
 
-public interface UiSignUpTask {
+public interface SignUpTask {
     void signUp(UserResponse userResponse);
 }

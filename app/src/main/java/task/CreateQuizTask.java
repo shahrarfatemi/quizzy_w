@@ -2,6 +2,6 @@ package task;
 
 import model.QuizResponse;
 
-public interface UiCreateQuizTask {
+public interface CreateQuizTask {
     void createQuiz(QuizResponse quizResponse);
 }

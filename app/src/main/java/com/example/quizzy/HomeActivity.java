@@ -29,8 +29,8 @@ import model.QuizFeed;
 import model.QuizResponse;
 import model.UserResponse;
 import network.NetworkUtilQuiz;
-import task.UiShowFeedTask;
-import task.UiShowQuizTask;
+import task.ShowFeedTask;
+import task.ShowQuizTask;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -72,7 +72,7 @@ public class HomeActivity extends AppCompatActivity {
         showQuizButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                networkUtilQuiz.showMyQuiz(token, new UiShowQuizTask() {
+                networkUtilQuiz.showMyQuiz(token, new ShowQuizTask() {
                     @Override
                     public void showMyQuizzes(List<QuizResponse> quizzes) {
                         Log.d("response in feed  ","got quizzes");
@@ -89,7 +89,7 @@ public class HomeActivity extends AppCompatActivity {
                 HashMap<String, String> hashMap = new HashMap<>();
                 hashMap.put("tag","General");
                 hashMap.put("title","Engineering");
-                networkUtilQuiz.showTopFeedQuizzes(token, hashMap, 0, 2, new UiShowFeedTask() {
+                networkUtilQuiz.showTopFeedQuizzes(token, hashMap, 0, 2, new ShowFeedTask() {
                     @Override
                     public void showTopFeedQuizzes(List<QuizFeed> quizzes) {
                         Log.d("response in feed  ","got quizzes ");
