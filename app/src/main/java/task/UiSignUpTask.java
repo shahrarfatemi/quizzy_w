@@ -1,7 +1,7 @@
 package task;
 
-import model.UserInfo;
+import model.UserResponse;
 
 public interface UiSignUpTask {
-    void signUp(UserInfo userInfo);
+    void signUp(UserResponse userResponse);
 }

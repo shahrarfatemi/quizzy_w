@@ -4,31 +4,16 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import com.google.gson.internal.LinkedTreeMap;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-import model.Quiz;
-import model.QuizResponse;
-import model.User;
-import model.UserInfo;
+import model.UserResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import task.UiCreateQuizTask;
-import task.UiDeleteUserTask;
-import task.UiEditProfileTask;
-import task.UiGetProfileTask;
 import task.UiLogOutTask;
 import task.UiLoginTask;
-import task.UiShowQuizTask;
 import task.UiSignUpTask;
 
 public class NetworkUtil {
@@ -57,21 +42,21 @@ public class NetworkUtil {
         hashMap.put("email",email);
         hashMap.put("password",pass);
 
-        Call<UserInfo> call = retrofitInterface.executeSignup(hashMap);
+        Call<UserResponse> call = retrofitInterface.executeSignup(hashMap);
 
-        call.enqueue(new Callback<UserInfo>() {
+        call.enqueue(new Callback<UserResponse>() {
             @Override
-            public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 //Toast.makeText(MainActivity.this,response.code()., Toast.LENGTH_LONG).show();
                 if(response.code() == 201){
                     try {
-                        UserInfo userInfo = (UserInfo) response.body();
-                        Log.d("email ",userInfo.getUser().getEmail());
-                        callBack.signUp(userInfo);
+                        UserResponse userResponse = (UserResponse) response.body();
+                        Log.d("email ", userResponse.getUserInfo().getEmail());
+                        callBack.signUp(userResponse);
 //                        Toast.makeText(SignupActivity.this, "saved info successfully " + name +"\n"+email+ "\n"+token, Toast.LENGTH_LONG).show();
 //                        saveInfo(name, email, token);
 //                        Intent intent = new Intent(SignupActivity.this,HomeActivity.class);
-//                        intent.putExtra("MyInfo",userInfo);
+//                        intent.putExtra("MyInfo",userResponse);
 //                        startActivity(intent);
 //                        finish();
                     }catch (Exception e){
@@ -83,7 +68,7 @@ public class NetworkUtil {
             }
 
             @Override
-            public void onFailure(Call<UserInfo> call, Throwable t) {
+            public void onFailure(Call<UserResponse> call, Throwable t) {
                 Log.d("failure ",t.toString());
             }
         });
@@ -98,16 +83,16 @@ public class NetworkUtil {
         hashMap.put("email",email);
         hashMap.put("password",pass);
 
-        Call<UserInfo> call = retrofitInterface.executeLogin(hashMap);
+        Call<UserResponse> call = retrofitInterface.executeLogin(hashMap);
 
-        call.enqueue(new Callback<UserInfo>() {
+        call.enqueue(new Callback<UserResponse>() {
             @Override
-            public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 //Toast.makeText(MainActivity.this,response.code()., Toast.LENGTH_LONG).show();
                 if(response.code() == 200){
                     try {
-                        UserInfo userInfo = (UserInfo) response.body();
-                        callBack.logIn(userInfo);
+                        UserResponse userResponse = (UserResponse) response.body();
+                        callBack.logIn(userResponse);
                     }catch (Exception e){
                         Log.d("exception ",e.getMessage());
                     }
@@ -117,7 +102,7 @@ public class NetworkUtil {
             }
 
             @Override
-            public void onFailure(Call<UserInfo> call, Throwable t) {
+            public void onFailure(Call<UserResponse> call, Throwable t) {
                 Log.d("failure ",t.toString());
             }
         });

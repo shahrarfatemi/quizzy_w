@@ -6,7 +6,7 @@ import androidx.annotation.Nullable;
 
 import java.util.HashMap;
 
-import model.User;
+import model.UserInfo;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,18 +23,18 @@ public class NetworkUtilAccount extends NetworkUtil {
 
     public void getProfile(String header, final @Nullable UiGetProfileTask callBack){
         Log.d("before request ",header);
-        Call<User> call = retrofitInterface.executeGetMyProfile("Bearer "+header);
+        Call<UserInfo> call = retrofitInterface.executeGetMyProfile("Bearer "+header);
 
-        call.enqueue(new Callback<User>() {
+        call.enqueue(new Callback<UserInfo>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
                 //Toast.makeText(FirstActivity.this,response.code()., Toast.LENGTH_LONG).show();
                 if(response.code() == 200){
                     try {
                         Log.d("before getting profile ","code => "+response.code());
-                        User user = (User) response.body();
-                        Log.d("got profile ",user.getEmail());
-                        callBack.getMyProfile(user);
+                        UserInfo userInfo = (UserInfo) response.body();
+                        Log.d("got profile ", userInfo.getEmail());
+                        callBack.getMyProfile(userInfo);
                     }catch (Exception e){
                         Log.d("exception ",e.getMessage());
                     }
@@ -44,25 +44,25 @@ public class NetworkUtilAccount extends NetworkUtil {
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<UserInfo> call, Throwable t) {
                 Log.d("failure ",t.toString());
             }
         });
     }
 
     public void deleteMyAccount(String header, @Nullable final UiDeleteUserTask callBack){
-        Call<User> call = retrofitInterface.executeDeleteMyAccount("Bearer "+header);
+        Call<UserInfo> call = retrofitInterface.executeDeleteMyAccount("Bearer "+header);
 
-        call.enqueue(new Callback<User>() {
+        call.enqueue(new Callback<UserInfo>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
                 if(response.code() == 200){
                     try {
 //                        Toast.makeText(HomeActivity.this, "deleted successfully ", Toast.LENGTH_LONG).show();
                         Log.d("call => ","before jsonUser");
-                        User user = (User) response.body();
+                        UserInfo userInfo = (UserInfo) response.body();
                         Log.d("call => ","object Got");
-                        callBack.deleteUser(user);
+                        callBack.deleteUser(userInfo);
                     }catch (Exception e){
                         Log.d("exception ",e.getMessage());
                     }
@@ -72,7 +72,7 @@ public class NetworkUtilAccount extends NetworkUtil {
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<UserInfo> call, Throwable t) {
                 Log.d("failure ",t.toString());
             }
         });
@@ -82,20 +82,20 @@ public class NetworkUtilAccount extends NetworkUtil {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("name",name);
         hashMap.put("password",password);
-        Call<User> call = retrofitInterface.executeEditMyAccount("Bearer "+header, hashMap);
-        call.enqueue(new Callback<User>() {
+        Call<UserInfo> call = retrofitInterface.executeEditMyAccount("Bearer "+header, hashMap);
+        call.enqueue(new Callback<UserInfo>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
                 //Toast.makeText(MainActivity.this,response.code()., Toast.LENGTH_LONG).show();
                 if(response.code() == 200){
                     try {
-                        //the server sends back the name,email,_id etc of the updated user,actually it can respond with other info too,
+                        //the server sends back the name,email,_id etc of the updated userInfo,actually it can respond with other info too,
                         // check the doc for that we can get any string in the same way as below so pera naai
-                        // new email and name has been assigned to the user and then updated in the sqlite database
+                        // new email and name has been assigned to the userInfo and then updated in the sqlite database
                         Log.d("call => ","before jsonUser");
-                        User user = ((User) response.body());
+                        UserInfo userInfo = ((UserInfo) response.body());
                         Log.d("call => ","object Got");
-                        callBack.editProfile(user);
+                        callBack.editProfile(userInfo);
 
                     }catch (Exception e){
                         Log.d("exception ",e.getMessage());
@@ -107,7 +107,7 @@ public class NetworkUtilAccount extends NetworkUtil {
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<UserInfo> call, Throwable t) {
                 Log.d("failure ",t.toString());
             }
         });

@@ -1,7 +1,7 @@
 package task;
 
-import model.User;
+import model.UserInfo;
 
 public interface UiGetProfileTask {
-    void getMyProfile(User user);
+    void getMyProfile(UserInfo userInfo);
 }

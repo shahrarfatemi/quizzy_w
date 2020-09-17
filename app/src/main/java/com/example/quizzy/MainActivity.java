@@ -2,7 +2,7 @@ package com.example.quizzy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import model.UserInfo;
+import model.UserResponse;
 import network.NetworkUtil;
 import task.UiLoginTask;
 
@@ -50,11 +50,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this,"clicked",Toast.LENGTH_LONG).show();
             networkUtil.handleLogin(email, password, new UiLoginTask() {
                 @Override
-                public void logIn(UserInfo userInfo) {
-                    signupNavigationButton.setText(userInfo.getToken());
-                    Log.d("nav ","to home page "+userInfo.getUser().getName());
+                public void logIn(UserResponse userResponse) {
+                    signupNavigationButton.setText(userResponse.getToken());
+                    Log.d("nav ","to home page "+ userResponse.getUserInfo().getName());
                     Intent intent = new Intent(MainActivity.this,HomeActivity.class);
-                    intent.putExtra("MyInfo",userInfo);
+                    intent.putExtra("MyInfo", userResponse);
                     startActivity(intent);
                     finish();
                 }

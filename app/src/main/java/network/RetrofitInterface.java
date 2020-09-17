@@ -10,28 +10,31 @@ import model.Quiz;
 import model.QuizFeed;
 import model.QuizResponse;
 import model.Submission;
-import model.User;
 import model.UserInfo;
+import model.UserResponse;
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RetrofitInterface {
 
     @POST("/users")
-    Call<UserInfo> executeSignup (@Body HashMap<String,String> hashMap);
+    Call<UserResponse> executeSignup (@Body HashMap<String,String> hashMap);
 
     @POST("/users/login")
-    Call<UserInfo> executeLogin (@Body HashMap<String,String> hashMap);
+    Call<UserResponse> executeLogin (@Body HashMap<String,String> hashMap);
 
     @GET("/users/me")
-    Call<User> executeGetMyProfile (@Header("Authorization") String header);
+    Call<UserInfo> executeGetMyProfile (@Header("Authorization") String header);
 
     @POST("/users/logout")
     Call<Void> executeLogout (@Header("Authorization") String header);
@@ -40,10 +43,10 @@ public interface RetrofitInterface {
     Call<Void> executeLogoutAll (@Header("Authorization") String header);
 
     @DELETE("/users/me")
-    Call<User> executeDeleteMyAccount (@Header("Authorization") String header);
+    Call<UserInfo> executeDeleteMyAccount (@Header("Authorization") String header);
 
     @PATCH("/users/me")
-    Call<User> executeEditMyAccount (@Header("Authorization") String header, @Body HashMap<String,String> hashMap);
+    Call<UserInfo> executeEditMyAccount (@Header("Authorization") String header, @Body HashMap<String,String> hashMap);
 
     @POST("/quizzes")
     Call<QuizResponse> executeCreateQuiz (@Header("Authorization") String header, @Body Quiz quiz);
@@ -89,6 +92,10 @@ public interface RetrofitInterface {
                                            @Body HashMap<String, Double> hashMap);
 
 //some are yet to add
+    @Multipart
+    @POST("/users/me/avatar")
+    Call<Void> executeUpdateProfilePicture(@Header("Authorization") String header,
+                                           @Part("avatar") MultipartBody.Part image);
 
 
     @DELETE("/users/me/avatar")

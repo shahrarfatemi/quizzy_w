@@ -29,4 +29,24 @@
         android:layout_height="wrap_content"
         android:id="@+id/showFeedText"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Image"
+        android:id="@+id/chooseImageButton"/>
+
+    <ImageView
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:id="@+id/imageId"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="post Image"
+        android:id="@+id/postImageButton"/>
+
 </LinearLayout>

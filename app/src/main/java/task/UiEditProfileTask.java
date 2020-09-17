@@ -1,7 +1,7 @@
 package task;
 
-import model.User;
+import model.UserInfo;
 
 public interface UiEditProfileTask {
-    void editProfile(User user);
+    void editProfile(UserInfo userInfo);
 }
