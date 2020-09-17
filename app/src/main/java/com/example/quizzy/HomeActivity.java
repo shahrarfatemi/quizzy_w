@@ -22,9 +22,11 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import image.ImageUtil;
 import model.QuizFeed;
 import model.QuizResponse;
 import model.UserResponse;
@@ -172,10 +174,18 @@ public class HomeActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
-            imageUri = data.getData();
+            try {
+                imageUri = data.getData();
 
 //            Picasso.with(this).load(imageUri).into(imageView);
-            Picasso.get().load(imageUri).into(imageView);
+                Picasso.get().load(imageUri).into(imageView);
+
+                //convert to binary
+                byte[] bytes = ImageUtil.convertToBytes(this, imageUri);
+                Log.d("binary converted",bytes.toString());
+            }catch (IOException e){
+                Log.d("IO exception",e.getMessage());
+            }
         }
     }
 }

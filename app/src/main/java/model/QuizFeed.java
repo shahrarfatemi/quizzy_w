@@ -1,10 +1,14 @@
 package model;
 
+import android.net.Uri;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class QuizFeed extends QuizResponse {
+    @SerializedName("imageUri")
+    Uri imageUri;
     @SerializedName("access")
     String access;
     @SerializedName("rating")
@@ -28,6 +32,16 @@ public class QuizFeed extends QuizResponse {
         this.questionCount = questionCount;
         this.userCount = userCount;
     }
+
+
+    public Uri getImageUri() {
+        return imageUri;
+    }
+
+    public void setImageUri(Uri imageUri) {
+        this.imageUri = imageUri;
+    }
+
 
     public String getOwnerName() {
         return ownerName;

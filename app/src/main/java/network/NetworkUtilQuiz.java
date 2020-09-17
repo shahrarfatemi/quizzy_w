@@ -206,16 +206,17 @@ public class NetworkUtilQuiz extends NetworkUtil {
 
     }
 
-    public void getQuestionsForAQuiz(String header, String quizId, HashMap<String, String> hashMap,
+    public void getQuestionsForAQuiz(String header, String quizId, String pwd,
                                      @Nullable final QuestionsForQuizTask callBack){
 
         Call<QuestionPaper> call;
 
-        if(hashMap.containsKey("pwd")) {
-            call = retrofitInterface.executeQuizQuestionPrivate("Bearer "+header, quizId, hashMap.get("pwd"));
+        if(pwd.equalsIgnoreCase("NO_PASSWORD")) {
+            call = retrofitInterface.executeQuizQuestionPublic("Bearer "+header, quizId);
+
         }
         else{
-            call = retrofitInterface.executeQuizQuestionPublic("Bearer "+header, quizId);
+            call = retrofitInterface.executeQuizQuestionPrivate("Bearer "+header, quizId, pwd);
         }
 
         call.enqueue(new Callback<QuestionPaper>() {
