@@ -6,4 +6,5 @@ import model.QuizFeed;
 
 public interface ShowFeedTask {
     void showTopFeedQuizzes(List<QuizFeed> quizzes);
+    void onFailure(String msg);
 }

@@ -4,6 +4,9 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.HashMap;
 
 import model.UserResponse;
@@ -24,7 +27,13 @@ public class NetworkUtil {
 //    private static NetworkUtil networkUtil;
 
     public NetworkUtil(){
-        retrofit = new Retrofit.Builder().baseUrl(BaseUrl).addConverterFactory(GsonConverterFactory.create()).build();
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BaseUrl)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
         retrofitInterface = retrofit.create(RetrofitInterface.class);
     }
 
@@ -61,15 +70,18 @@ public class NetworkUtil {
 //                        finish();
                     }catch (Exception e){
                         Log.d("exception ",e.getMessage());
+                        callBack.onFailure(e.getMessage());
                     }
                 }else if(response.code() == 400){
                     Log.d("response ","code => "+response.code());
+                    callBack.onFailure(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
                 Log.d("failure ",t.toString());
+                callBack.onFailure(t.toString());
             }
         });
 
@@ -95,15 +107,18 @@ public class NetworkUtil {
                         callBack.logIn(userResponse);
                     }catch (Exception e){
                         Log.d("exception ",e.getMessage());
+                        callBack.onFailure(e.getMessage());
                     }
                 }else if(response.code() == 400){
                     Log.d("response ","code => "+response.code());
+                    callBack.onFailure(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
                 Log.d("failure ",t.toString());
+                callBack.onFailure(t.toString());
             }
         });
 
@@ -127,14 +142,17 @@ public class NetworkUtil {
 //                        finish();
                     }catch (Exception e){
                         Log.d("exception ",e.getMessage());
+                        callBack.onFailure(e.getMessage());
                     }
                 }else if(response.code() == 400){
                     Log.d("response ","code => "+response.code());
+                    callBack.onFailure(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+                callBack.onFailure(t.toString());
                 Log.d("failure ",t.toString());
             }
         });
@@ -154,15 +172,18 @@ public class NetworkUtil {
                         callBack.logOut();
                     }catch (Exception e){
                         Log.d("exception ",e.getMessage());
+                        callBack.onFailure(e.getMessage());
                     }
                 }else if(response.code() == 500){
                     Log.d("response ","code => "+response.code());
+                    callBack.onFailure(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Log.d("failure ",t.toString());
+                callBack.onFailure(t.toString());
             }
         });
 

@@ -51,15 +51,18 @@ public class NetworkUtilQuiz extends NetworkUtil {
                         //show whatever you want,you have the quizObject
                     }catch (Exception e){
                         Log.d("exception ",e.getMessage());
+                        callBack.onFailure(e.getMessage());
                     }
                 }
                 else if(response.code() == 400){
                     Log.d("response ","code => "+response.code());
+                    callBack.onFailure(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<QuizResponse> call, Throwable t) {
+                callBack.onFailure(t.toString());
                 Log.d("failure ",t.toString());
             }
         });
@@ -76,19 +79,23 @@ public class NetworkUtilQuiz extends NetworkUtil {
                         Log.d("delete Q ","deleted quiz successfully");
                         callBack.deleteQuiz();
                     }catch (Exception e){
+                        callBack.onFailure(e.getMessage());
                         Log.d("exception ",e.getMessage());
                     }
                 }
                 else if(response.code() == 500){
                     Log.d("response ","code => "+response.code());
+                    callBack.onFailure(response.message());
                 }
                 else if(response.code() == 404){
                     Log.d("response ","code => "+response.code());
+                    callBack.onFailure(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+                callBack.onFailure(t.toString());
                 Log.d("failure ",t.toString());
             }
         });
@@ -111,10 +118,12 @@ public class NetworkUtilQuiz extends NetworkUtil {
                         callBack.showMyQuizzes(quizzes);
                     }catch (Exception e){
                         Log.d("exception ",e.getMessage());
+                        callBack.onFailure(e.getMessage());
                     }
                 }
                 else if(response.code() == 500){
                     Log.d("response ","code => "+response.code());
+                    callBack.onFailure(response.message());
                 }
 
             }
@@ -122,6 +131,7 @@ public class NetworkUtilQuiz extends NetworkUtil {
             @Override
             public void onFailure(Call<List<QuizResponse>> call, Throwable t) {
                 Log.d("failure ",t.toString());
+                callBack.onFailure(t.toString());
             }
         });
     }
@@ -139,16 +149,19 @@ public class NetworkUtilQuiz extends NetworkUtil {
 //                            showDataTextView.setText(quizQuizResponse.getResponses().get(0).getMessage());//just showing the first response
                     }catch (Exception e){
                         Log.d("exception ",e.getMessage());
+                        callBack.onFailure(e.getMessage());
                     }
                 }
                 else if(response.code() == 400){
                     Log.d("response ","code => "+response.code());
+                    callBack.onFailure(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<QuizResponse> call, Throwable t) {
                 Log.d("failure ",t.toString());
+                callBack.onFailure(t.toString());
             }
         });
 
@@ -190,10 +203,12 @@ public class NetworkUtilQuiz extends NetworkUtil {
 
                     }catch (Exception e){
                         Log.d("exception ",e.getMessage());
+                        callBack.onFailure(e.getMessage());
                     }
                 }
                 else if(response.code() == 500){
                     Log.d("response ","code => "+response.code());
+                    callBack.onFailure(response.message());
                 }
 
             }
@@ -201,6 +216,7 @@ public class NetworkUtilQuiz extends NetworkUtil {
             @Override
             public void onFailure(Call<List<QuizFeed>> call, Throwable t) {
                 Log.d("failure ",t.toString());
+                callBack.onFailure(t.toString());
             }
         });
 
@@ -230,22 +246,27 @@ public class NetworkUtilQuiz extends NetworkUtil {
 
                     }catch (Exception e){
                         Log.d("exception ",e.getMessage());
+                        callBack.onFailure(e.getMessage());
                     }
                 }
                 else if(response.code() == 400){
                     Log.d("response ","code => sth unknown went wrong "+response.code());
+                    callBack.onFailure(response.message());
                 }
                 else if(response.code() == 401){
                     Log.d("response ","code => incorrect password "+response.code());
+                    callBack.onFailure(response.message());
                 }
                 else if(response.code() == 404){
                     Log.d("response ","code => the id was not found "+response.code());
+                    callBack.onFailure(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<QuestionPaper> call, Throwable t) {
                 Log.d("failure ",t.toString());
+                callBack.onFailure(t.toString());
             }
         });
 
@@ -273,16 +294,19 @@ public class NetworkUtilQuiz extends NetworkUtil {
 
                     }catch (Exception e){
                         Log.d("exception ",e.getMessage());
+                        callBack.onFailure(e.getMessage());
                     }
                 }
                 else if(response.code() == 500){
                     Log.d("response ","code => sth unknown went wrong "+response.code());
+                    callBack.onFailure(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<AnswerResponse> call, Throwable t) {
                 Log.d("failure ",t.toString());
+                callBack.onFailure(t.toString());
             }
         });
 
@@ -310,19 +334,23 @@ public class NetworkUtilQuiz extends NetworkUtil {
 
                     }catch (Exception e){
                         Log.d("exception ",e.getMessage());
+                        callBack.onFailure(e.getMessage());
                     }
                 }
                 else if(response.code() == 400){
                     Log.d("response ","code => bad request "+response.code());
+                    callBack.onFailure(response.message());
                 }
                 else if(response.code() == 404){
                     Log.d("response ","code => submission id not found "+response.code());
+                    callBack.onFailure(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<AnswerReview> call, Throwable t) {
                 Log.d("failure ",t.toString());
+                callBack.onFailure(t.toString());
             }
         });
 

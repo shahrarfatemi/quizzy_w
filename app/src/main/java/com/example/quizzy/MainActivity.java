@@ -58,6 +58,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(intent);
                     finish();
                 }
+
+                @Override
+                public void onFailure(String msg) {
+                    Log.d("failed login ",msg);
+                }
             });
         }
     }

@@ -1,19 +1,26 @@
 package network;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 import model.UserInfo;
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import task.DeleteProfilePictureTask;
 import task.DeleteUserTask;
 import task.EditProfileTask;
+import task.FetchProfilePictureTask;
 import task.GetProfileTask;
+import task.UpdateProfilePictureTask;
 
 public class NetworkUtilAccount extends NetworkUtil {
 
@@ -37,15 +44,18 @@ public class NetworkUtilAccount extends NetworkUtil {
                         callBack.getMyProfile(userInfo);
                     }catch (Exception e){
                         Log.d("exception ",e.getMessage());
+                        callBack.onFailure(e.getMessage());
                     }
                 }else if(response.code() == 400){
                     Log.d("response ","code => "+response.code());
+                    callBack.onFailure(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<UserInfo> call, Throwable t) {
                 Log.d("failure ",t.toString());
+                callBack.onFailure(t.toString());
             }
         });
     }
@@ -65,15 +75,18 @@ public class NetworkUtilAccount extends NetworkUtil {
                         callBack.deleteUser(userInfo);
                     }catch (Exception e){
                         Log.d("exception ",e.getMessage());
+                        callBack.onFailure(e.getMessage());
                     }
                 }else if(response.code() == 500){
                     Log.d("response ","code => "+response.code());
+                    callBack.onFailure(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<UserInfo> call, Throwable t) {
                 Log.d("failure ",t.toString());
+                callBack.onFailure(t.toString());
             }
         });
     }
@@ -99,15 +112,48 @@ public class NetworkUtilAccount extends NetworkUtil {
 
                     }catch (Exception e){
                         Log.d("exception ",e.getMessage());
+                        callBack.onFailure(e.getMessage());
                     }
                 }else if(response.code() == 400){
 //                    Toast.makeText(HomeActivity.this, "could not edit", Toast.LENGTH_LONG).show();
                     Log.d("response ","code => "+response.code());
+                    callBack.onFailure(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<UserInfo> call, Throwable t) {
+                Log.d("failure ",t.toString());
+                callBack.onFailure(t.toString());
+            }
+        });
+    }
+
+    public void updateProfilePicture(String header, MultipartBody.Part body, @Nullable final UpdateProfilePictureTask callBack){
+        Call<Void> call = retrofitInterface.executeUpdateProfilePicture("Bearer "+header, body);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.code() == 200){
+                    try {
+//                        Toast.makeText(HomeActivity.this, "deleted successfully ", Toast.LENGTH_LONG).show();
+                        Log.d("call => ","after response");
+                        callBack.updateProfilePicture();
+                    }catch (Exception e){
+                        Log.d("exception ",e.getMessage());
+                        callBack.onFailure(e.getMessage());
+                    }
+                }
+                else if(response.code() == 400){
+                    Log.d("response ","code => "+response.code());
+                    callBack.onFailure(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                callBack.onFailure(t.toString());
                 Log.d("failure ",t.toString());
             }
         });
@@ -125,15 +171,53 @@ public class NetworkUtilAccount extends NetworkUtil {
                         Log.d("call => ","after response");
                         callBack.deleteProfilePicture();
                     }catch (Exception e){
+                        callBack.onFailure(e.getMessage());
                         Log.d("exception ",e.getMessage());
                     }
                 }else {
                     Log.d("response ","code => "+response.code());
+                    callBack.onFailure(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+                callBack.onFailure(t.toString());
+                Log.d("failure ",t.toString());
+            }
+        });
+    }
+
+    public void getProfilePicture(String _id, @Nullable final FetchProfilePictureTask callBack){
+        Call<Object> call = retrofitInterface.executeGetProfilePicture(_id);
+
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if(response.code() == 200){
+                    try {
+//                        Toast.makeText(HomeActivity.this, "deleted successfully ", Toast.LENGTH_LONG).show();
+                        String string = (String) response.body();
+
+                        byte[] bytes = string.getBytes();
+                        for(int i = 0 ; i < bytes.length ; i++) {
+                            Log.d("call => ", "byte => " + bytes[i]);
+                        }
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                        callBack.fetchProfilePicture(bitmap);
+                    }catch (Exception e){
+                        callBack.onFailure(e.getMessage());
+                        Log.d("exception ",e.getMessage());
+                    }
+                }else {
+                    Log.d("response ","code => "+response.code());
+                    callBack.onFailure(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                callBack.onFailure(t.toString());
                 Log.d("failure ",t.toString());
             }
         });

@@ -18,6 +18,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
@@ -95,8 +96,11 @@ public interface RetrofitInterface {
     @Multipart
     @POST("/users/me/avatar")
     Call<Void> executeUpdateProfilePicture(@Header("Authorization") String header,
-                                           @Part("avatar") MultipartBody.Part image);
+                                           @Part MultipartBody.Part image);
 
+    @Headers("Content-Type: application/json")
+    @GET("/users/{id}/avatar")
+    Call<Object> executeGetProfilePicture(@Path("id") String id);
 
     @DELETE("/users/me/avatar")
     Call<Void> executeDeleteProfilePicture(@Header("Authorization") String header);
